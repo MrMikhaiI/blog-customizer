@@ -27,7 +27,7 @@ type ArticleParamsFormProps = {
 export const ArticleParamsForm = ({ onApply }: ArticleParamsFormProps) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [formState, setFormState] = useState<ArticleStateType>(defaultArticleState);
-	const rootRef = useRef<HTMLDivElement>(null);
+	const rootRef = useRef<HTMLAsideElement>(null);
 
 	useOutsideClickClose({
 		isOpen,
@@ -36,7 +36,7 @@ export const ArticleParamsForm = ({ onApply }: ArticleParamsFormProps) => {
 		onChange: setIsOpen,
 	});
 
-	const handleSubmit = (e: React.FormEvent) => {
+	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		onApply(formState);
 	};
@@ -50,7 +50,7 @@ export const ArticleParamsForm = ({ onApply }: ArticleParamsFormProps) => {
 		<>
 			<ArrowButton isOpen={isOpen} onClick={() => setIsOpen((prev) => !prev)} />
 			<aside
-				ref={rootRef as React.RefObject<HTMLElement>}
+				ref={rootRef}
 				className={clsx(styles.container, { [styles.container_open]: isOpen })}>
 				<form className={styles.form} onSubmit={handleSubmit} onReset={handleReset}>
 					<Text as='h2' size={31} weight={800} uppercase>
@@ -62,7 +62,6 @@ export const ArticleParamsForm = ({ onApply }: ArticleParamsFormProps) => {
 						selected={formState.fontFamilyOption}
 						onChange={(val) => setFormState((prev) => ({ ...prev, fontFamilyOption: val }))}
 					/>
-					<Separator />
 					<RadioGroup
 						title='Размер шрифта'
 						name='fontSize'
@@ -70,7 +69,6 @@ export const ArticleParamsForm = ({ onApply }: ArticleParamsFormProps) => {
 						selected={formState.fontSizeOption}
 						onChange={(val) => setFormState((prev) => ({ ...prev, fontSizeOption: val }))}
 					/>
-					<Separator />
 					<Select
 						title='Цвет шрифта'
 						options={fontColors}
@@ -84,7 +82,6 @@ export const ArticleParamsForm = ({ onApply }: ArticleParamsFormProps) => {
 						selected={formState.backgroundColor}
 						onChange={(val) => setFormState((prev) => ({ ...prev, backgroundColor: val }))}
 					/>
-					<Separator />
 					<Select
 						title='Ширина контента'
 						options={contentWidthArr}
