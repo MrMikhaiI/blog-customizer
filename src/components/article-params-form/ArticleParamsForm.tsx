@@ -50,7 +50,7 @@ export const ArticleParamsForm = ({ onApply }: ArticleParamsFormProps) => {
 		<>
 			<ArrowButton isOpen={isOpen} onClick={() => setIsOpen((prev) => !prev)} />
 			<aside
-				ref={rootRef as React.RefObject<HTMLElement>}
+				ref={rootRef}
 				className={clsx(styles.container, { [styles.container_open]: isOpen })}>
 				<form className={styles.form} onSubmit={handleSubmit} onReset={handleReset}>
 					<Text as='h2' size={31} weight={800} uppercase>
