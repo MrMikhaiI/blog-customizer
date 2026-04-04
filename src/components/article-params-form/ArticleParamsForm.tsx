@@ -27,7 +27,7 @@ type ArticleParamsFormProps = {
 export const ArticleParamsForm = ({ onApply }: ArticleParamsFormProps) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [formState, setFormState] = useState<ArticleStateType>(defaultArticleState);
-	const rootRef = useRef<HTMLAsideElement>(null);
+	const rootRef = useRef<HTMLElement>(null);
 
 	useOutsideClickClose({
 		isOpen,
@@ -50,7 +50,7 @@ export const ArticleParamsForm = ({ onApply }: ArticleParamsFormProps) => {
 		<>
 			<ArrowButton isOpen={isOpen} onClick={() => setIsOpen((prev) => !prev)} />
 			<aside
-				ref={rootRef}
+				ref={rootRef as React.RefObject<HTMLElement>}
 				className={clsx(styles.container, { [styles.container_open]: isOpen })}>
 				<form className={styles.form} onSubmit={handleSubmit} onReset={handleReset}>
 					<Text as='h2' size={31} weight={800} uppercase>
